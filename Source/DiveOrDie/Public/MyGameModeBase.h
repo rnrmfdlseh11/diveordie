@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "DiveOrDie.h"
+#include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "MyGameModeBase.generated.h"
 
@@ -14,8 +14,5 @@ class DIVEORDIE_API AMyGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 	
-public:
 	AMyGameModeBase();
-
-	virtual void PostLogin(APlayerController* NewPlayer) override;
 };
