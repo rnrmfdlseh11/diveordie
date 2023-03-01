@@ -16,6 +16,7 @@ class DIVEORDIE_API UMyAnimInstance : public UAnimInstance
 
 public:
 	UMyAnimInstance();
+	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
 
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Pawn, Meta = (AllowPrivateAccess = true))
