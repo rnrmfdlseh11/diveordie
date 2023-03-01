@@ -24,7 +24,7 @@ AMyCharacter::AMyCharacter()
 
 	GetMesh()->SetRelativeLocationAndRotation(FVector(0.f, 0.f, -88.f), FRotator(0.f, -90.f, 0.f));
 
-	static ConstructorHelpers::FObjectFinder<USkeletalMesh> SkM(TEXT("/Script/Engine.SkeletalMesh'/Game/Asset/Character/Ch49_nonPBR.Ch49_nonPBR'"));
+	static ConstructorHelpers::FObjectFinder<USkeletalMesh> SkM(TEXT("/Script/Engine.SkeletalMesh'/Game/Asset/Character/Soldier_T_Pose_.Soldier_T_Pose_'"));
 
 	if (SkM.Succeeded())
 	{
