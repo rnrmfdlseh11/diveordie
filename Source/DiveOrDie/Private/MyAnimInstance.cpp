@@ -3,18 +3,22 @@
 
 #include "MyAnimInstance.h"
 
-UMyAnimInstance::UMyAnimInstance()
-{
-	CurrentPawnSpeed = 0.f;
+UMyAnimInstance::UMyAnimInstance() {
+	Speed = 0.0f;
 }
 
 void UMyAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 {
-	Super::NativeUpdateAnimation(DeltaSeconds);
+	//Super::NativeUpdateAnimation(DeltaSeconds);
 
-	auto Pawn = TryGetPawnOwner();
-	if (::IsValid(Pawn))
-	{
-		CurrentPawnSpeed = Pawn->GetVelocity().Size();
-	}
+	//auto Pawn = TryGetPawnOwner();
+	//if (::IsValid(Pawn))
+	//{
+	//	Speed = Pawn->GetVelocity().Size();
+	//	auto Character = Cast<ACharacter>(Pawn);
+	//	if (Character)
+	//	{
+	//		//IsOnAir = Character->GetMovementComponent()->IsFalling();
+	//	}
+	//}
 }
