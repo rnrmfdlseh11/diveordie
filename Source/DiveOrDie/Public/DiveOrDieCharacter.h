@@ -9,6 +9,7 @@
 
 #include "DiveOrDieCharacter.generated.h"
 
+class DiveCharacterController;
 UCLASS()
 class DIVEORDIE_API ADiveOrDieCharacter : public ACharacter
 {
@@ -18,21 +19,67 @@ public:
 	// Sets default values for this character's properties
 	ADiveOrDieCharacter();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		int Score;
+	virtual void PossessedBy(AController* NewController) override;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		float MaxHealth = 100;
+	virtual void UnPossessed() override;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		float CurrentHealth = 100;
+	void SetEnableInput(bool canMove = true, bool canTurn = true);
+private:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, category = Instance, meta = (AllowPrivateAccess = true))
+		bool _bCanMove = true;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		float GroundSpeed;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, category = Instance, meta = (AllowPrivateAccess = true))
+		bool _bCanTurn = true;
+public:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
+		float BaseTurnRate;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		UParticleSystem* particles;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
+		float BaseLookUpRate;
 
+	UFUNCTION(BlueprintCallable)
+		float GetMaxHP();
+
+	UFUNCTION(BlueprintCallable)
+		float GetCurrentHP();
+
+	UFUNCTION(BlueprintCallable)
+		float GetMaxOxygen();
+
+	UFUNCTION(BlueprintCallable)
+		float GetCurrentOxygen();
+private:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (allowPrivateAccess = true))
+	bool _bOnMove = false;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (allowPrivateAccess = true))
+	bool _bOnJump = false;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (allowPrivateAccess = true))
+	bool _bOnSwim = false;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (allowPrivateAccess = true))
+	int _iScore = 0;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (allowPrivateAccess = true))
+	float _fMaxHP;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (allowPrivateAccess = true))
+	float _fCurrentHP;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (allowPrivateAccess = true))
+	float _fGroundSpeed;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (allowPrivateAccess = true))
+	float _fMaxOxygen;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (allowPrivateAccess = true))
+	float _fCurrentOxygen;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (allowPrivateAccess = true))
+	UParticleSystem* particles;
+
+public:
 	UFUNCTION(BlueprintCallable)
 		void UpdateScore(int Points);
 
@@ -42,8 +89,23 @@ public:
 	void ReceiveAnyDamage(float damage);
 
 protected:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Camera)
+	class USpringArmComponent* CameraBoom;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Camera)
+	class UCameraComponent* FollowCamera;
+protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	void MoveForward(float Value);
+
+	void MoveRight(float Value);
+
+	void TurnAtRate(float Rate);
+
+	void LookUpAtRate(float Rate);
+
 
 public:	
 	// Called every frame

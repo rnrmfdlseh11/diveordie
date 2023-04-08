@@ -40,6 +40,6 @@ public:
 	void Yaw(float value);
 
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
-	float TurnRate = 100;
+	//float TurnRate = 100;
 
 };
