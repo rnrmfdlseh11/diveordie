@@ -15,14 +15,7 @@ unsigned int WINAPI CallWorkerThread(LPVOID p)
 
 MainIOCP::MainIOCP()
 {
-    if (Conn.Connect(DB_ADDRESS, DB_ID, DB_PW, DB_SCHEMA, DB_PORT))
-    {
-        cout << "[INFO] DB 立加 己傍" << endl;
-    }
-    else
-    {
-        cout << "[INFO] DB 立加 角菩" << endl;
-    }
+    Conn.Connect(DB_ADDRESS, DB_ID, DB_PW, DB_PORT);
 
     fnProcess[EPacketType::SIGNUP].funcProcessPacket = SignUp;
     fnProcess[EPacketType::LOGIN].funcProcessPacket = Login;

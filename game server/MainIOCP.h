@@ -7,9 +7,8 @@
 
 #define DB_ADDRESS      "localhost"
 #define DB_PORT         3306
-#define DB_ID           "root"
+#define DB_ID           "admin"
 #define DB_PW           "qwer123$"
-#define DB_SCHEMA       ""
 
 enum EPacketType
 {

@@ -149,7 +149,7 @@ void IOCP::Recv(SOCKETINFO* pSocket)
     // DWORD	sendBytes;
     DWORD	dwFlags = 0;
 
-    // stSOCKETINFO 데이터 초기화
+    // SOCKETINFO 데이터 초기화
     ZeroMemory(&(pSocket->overlapped), sizeof(OVERLAPPED));
     ZeroMemory(pSocket->messageBuffer, MAX_BUFFER);
     pSocket->dataBuf.len = MAX_BUFFER;
