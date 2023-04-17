@@ -4,11 +4,11 @@
 
 int main()
 {
-    MainIOCP iocp_server;
+    MainIOCP mainIOCP;;
 
-    if (iocp_server.Initialize())
+    if (mainIOCP.Initialize())
     {
-        iocp_server.ServerStart();
+        mainIOCP.ServerStart();
     }
     return 0;
 }
