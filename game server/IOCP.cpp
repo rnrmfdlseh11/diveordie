@@ -79,6 +79,7 @@ void IOCP::ServerStart()
     DWORD flags;
 
     hIOCP = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, 0, 0);
+    if (!CreateWorkerThread()) return;
 
     cout << "[INFO] 서버 시작 중...." << endl;
 
@@ -92,6 +93,7 @@ void IOCP::ServerStart()
             return;
         }
 
+        cout << "[INFO] 클라이언트 접속" << endl;
         SocketInfo = new SOCKETINFO();
         SocketInfo->socket = clientSocket;
         SocketInfo->recvBytes = 0;
@@ -119,6 +121,17 @@ void IOCP::ServerStart()
         }
     }
 }
+
+bool IOCP::CreateWorkerThread()
+{
+    return false;
+}
+
+void IOCP::WorkerThread()
+{
+
+}
+
 
 void IOCP::Send(SOCKETINFO* pSocket)
 {

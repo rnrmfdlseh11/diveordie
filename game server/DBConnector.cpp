@@ -43,18 +43,19 @@ bool DBConnector::SearchAccount(const string& Id, const string& Password)
 
     try
     {
-        Res->next();
-        cout << "Id = " << Res->getString("Id") << endl;
-        cout << "Pw = " << Res->getString("Pw") << endl;
+        Res = Stmt->executeQuery(sql);
+        if (Res->next())
+        {
+            cout << "Id = " << Res->getString("Id") << endl;
+            cout << "Pw = " << Res->getString("Pw") << endl;
 
-        return true;
-    }
-    catch (sql::SQLException& e)
-    {
-        cout << "[DB] 오류 : ";
-        cout << e.what() << endl;
+            return true;
+        }
+        else
+        {
+            cout << "[DB] 해당 계정 존재하지 않음" << endl;
         return false;
-    }
+        }
     mysql_free_result(Res);
 
     return bResult;
@@ -64,22 +65,21 @@ bool DBConnector::SignUpAccount(const string& Id, const string& Password)
 {
     string sql = "SELECT * FROM `UserAccount`.`UserInfo` WHERE `Id` = '";
     sql += Id + "'";
-    try
+
+    Res = Stmt->executeQuery(sql);
+    if (Res->next())
     {
-        Res = Stmt->executeQuery(sql);
-
-        Res->next();
+       
         cout << "[DB] 이미 존재하는 아이디 : " << Res->getString("Id") << endl;
-
         return false;
     }
 
-    catch (sql::SQLException& e)
+    else
     {
         sql = "INSERT INTO `UserAccount`.`UserInfo` (`Id`, `Pw`) VALUES ('";
         sql += Id + "', '" + Password + "')";
 
-        Stmt->executeQuery(sql);
+        Stmt->executeUpdate(sql);
         return true;
     }
 }
