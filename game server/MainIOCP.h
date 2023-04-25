@@ -13,7 +13,8 @@
 enum EPacketType
 {
     SIGNUP,
-    LOGIN
+    LOGIN,
+    SETUSERDATA
 };
 
 class MainIOCP : public IOCP
@@ -41,6 +42,7 @@ private:
     static void SignUp(stringstream& RecvStream, SOCKETINFO* pSocket);
     // DB에 로그인
     static void Login(stringstream& RecvStream, SOCKETINFO* pSocket);
-
+    // DB에 유저 데이터 저장
+    static void SetUserData(stringstream& RecvStream, SOCKETINFO* pSocket);
 
 };
